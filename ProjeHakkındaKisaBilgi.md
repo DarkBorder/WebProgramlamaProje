@@ -13,7 +13,7 @@ izleniyor çünkü animelerin toplandığı Netflix benzeri bir web sitesi yok o
 istemeyen animelerin hakkını vermek isteyen insanlar için  bir seçenek olmak istedim. Aslında animelerin yapılma sebebi mangasının tanıtımıdır insanlar manga okumaktansa
 anime izlemeyi tercih ettiği için manga sanatçıları mangasının reklamını yapmak ister çünkü bir manga sanatçısının geliri mangadan veya  anime ile ilgili olan
 her şeyden gelir (anime figürleri , anime kostümleri gibi)  o yüzden manga sanatçısı bir stüdyo ile anlaşır mangasını animeye dönüştürür. Animelerin korsan izlenilmesi
-manga sanatçısına veya animeye çok zarar vermez ama ben yinede korsan izlenilmesine karşıyım o yüzden bir Netflix benzeri web site yapmak istedim</br></br>
+manga sanatçısına veya animeye çok zarar vermez ama ben yinede korsan izlenilmesine karşıyım o yüzden bir Netflix benzeri bir web site yapmak istedim</br></br>
 **Animeler Netflix'te Yayınlanmıyor mu ?**</br>
 Bazı animeler Netflix'te var fakat Netflix'in yapısı animelere uygun değil çünkü animeler 
 genellikle hafta da 1 bölüm yayınlanacak şekilde bölüm çıkartırlar Netflix ise bir dizinin tüm bölümlerini tek seferde yayınlıyor aslında bu bir dizi için daha mantıklı ama 
