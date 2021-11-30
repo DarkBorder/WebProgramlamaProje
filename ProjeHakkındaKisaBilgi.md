@@ -21,6 +21,6 @@ animeler için mantıklı değil bu yüzden anime sever bir insan olarak bir ani
 üyeliğim olduğunda sevdiğim animenin 4 bölümünü izleyebileceğim yani param boşa gidecek o yüzden animelerin sezonunu satın alabileceğimiz bir web sitesi tasarlamak istedim.
 
 ## Web Sitem Nasıl İşleyecek
-Animelerin sezonunun belirli bir ücreti olacak ve o ücreti ödeyen herkes animenin o sezonunu izleyebilecek. Bir sezonda animenin bütçesi iyi ise ortalama 24 bölüm çıkar 
+Animelerin sezonunun belirli bir ücreti olacak ve o ücreti ödeyen herkes animenin o sezonunu izleyebilecek. Animenin bir sezonunu 1 kere almak yetecek alınan anime sezonları kişinin kütüphanesinde saklanacak ve istediği zaman istediği kadar izleyebilecek. Bir sezonda animenin bütçesi iyi ise ortalama 24 bölüm çıkar 
 animenin bütçesi kötü ise ortalama 12 bölüm çıkar (istisnalar var Naruto , One Piece gibi animeler hala her hafta yeni bölümleri çıkmaya devam ediyor).
 Animenin yeni bölümlere geldikçe siteye eklenecek. Web sitesi ile ilgili daha bir çok özellikte olacaktır.  
