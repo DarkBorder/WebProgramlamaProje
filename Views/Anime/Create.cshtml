@@ -1,0 +1,115 @@
+﻿@model AnimeBox.Models.Anime
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Anime</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StudyoId" class="control-label"></label>
+                <br>
+                <select asp-for="StudyoId" class="form-control" asp-items="ViewBag.StudyoId"></select>
+                <br><br>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnimeAdi" class="control-label"></label>
+                <input asp-for="AnimeAdi" class="form-control" />
+                <span asp-validation-for="AnimeAdi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaslamaTarihi" class="control-label"></label>
+                <input asp-for="BaslamaTarihi" class="form-control" />
+                <span asp-validation-for="BaslamaTarihi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BitisTarihi" class="control-label"></label>
+                <input asp-for="BitisTarihi" class="form-control" />
+                <span asp-validation-for="BitisTarihi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KacinciSezon" class="control-label"></label>
+                <input asp-for="KacinciSezon" class="form-control" />
+                <span asp-validation-for="KacinciSezon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HangiSezondaCikti" class="control-label"></label>
+                <input asp-for="HangiSezondaCikti" class="form-control" />
+                <span asp-validation-for="HangiSezondaCikti" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fiyat" class="control-label"></label>
+                <input asp-for="Fiyat" class="form-control" />
+                <span asp-validation-for="Fiyat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YasSiniri" class="control-label"></label>
+                <input asp-for="YasSiniri" class="form-control" />
+                <span asp-validation-for="YasSiniri" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SatinAlimSayisi" class="control-label"></label>
+                <input asp-for="SatinAlimSayisi" class="form-control" />
+                <span asp-validation-for="SatinAlimSayisi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IzlenmeSayisi" class="control-label"></label>
+                <input asp-for="IzlenmeSayisi" class="form-control" />
+                <span asp-validation-for="IzlenmeSayisi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BolumSayisi" class="control-label"></label>
+                <input asp-for="BolumSayisi" class="form-control" />
+                <span asp-validation-for="BolumSayisi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BolumSuresi" class="control-label"></label>
+                <input asp-for="BolumSuresi" class="form-control" />
+                <span asp-validation-for="BolumSuresi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IMDB_Puan" class="control-label"></label>
+                <input asp-for="IMDB_Puan" class="form-control" />
+                <span asp-validation-for="IMDB_Puan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AktifMi" class="control-label"></label>
+                <input asp-for="AktifMi" class="form-control" />
+                <span asp-validation-for="AktifMi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnimeninKonusu" class="control-label"></label>
+                <input asp-for="AnimeninKonusu" class="form-control" />
+                <span asp-validation-for="AnimeninKonusu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnimeTanitimFoto" class="control-label"></label>
+                @*<input asp-for="AnimeTanitimFoto" class="form-control" />*@
+                <input type="file" class="form-control" name="files" />
+                <span asp-validation-for="AnimeTanitimFoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FragmanVideosu" class="control-label"></label>
+                <input asp-for="FragmanVideosu" class="form-control" />
+                <span asp-validation-for="FragmanVideosu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
