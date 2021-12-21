@@ -1,0 +1,36 @@
+﻿@page
+@model LoginModel
+
+<section class="normal-breadcrumb set-bg" data-setbg="/lib/bootstrap/dist/img/normal-breadcrumb.jpg"></section>
+
+<section class="login spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login__form">
+                    <h3>Giriş Yap</h3>
+                    <form id="account" method="post">
+                        <div class="input__item">
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span class="icon_mail"></span>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="input__item">
+                            <input asp-for="Input.Password" class="form-control" />
+                            <span class="icon_lock"></span>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="site-btn">Giriş Yap</button>
+                    </form>
+                    <a id="forgot-password" asp-page="./ForgotPassword" class="forget_pass">Parolayı mı unuttun?</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login__register">
+                    <h3>Hesap oluşturmadın mı?</h3>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="primary-btn">Kayıt Ol</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

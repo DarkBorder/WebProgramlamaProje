@@ -1,0 +1,52 @@
+﻿@page
+@model RegisterModel
+
+    <section class="normal-breadcrumb set-bg" data-setbg="/lib/bootstrap/dist/img/normal-breadcrumb.jpg"></section>
+
+    <section class="signup spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="login__form">
+                        <h3>Üye Ol</h3>
+                        <form asp-route-returnUrl="Model.ReturnUrl" method="post">
+                            <div class="input__item">
+                                <input asp-for="Input.Ad" class="form-control" />
+                                <span class="icon_profile"></span>
+                                <span asp-validation-for="Input.Ad" class="text-danger"></span>
+                            </div>
+                            <div class="input__item">
+                                <input asp-for="Input.Soyad" class="form-control" />
+                                <span class="icon_profile"></span>
+                                <span asp-validation-for="Input.Soyad" class="text-danger"></span>
+                            </div>
+                            <div class="input__item">
+                                <input asp-for="Input.DogumTarihi" class="form-control" />
+                                <span class="fa fa-birthday-cake"></span>
+                                <span asp-validation-for="Input.DogumTarihi" class="text-danger"></span>
+                            </div>
+                            <div class="input__item">
+                                <input asp-for="Input.Email" class="form-control" />
+                                <span class="icon_mail"></span>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <div class="input__item">
+                                <input asp-for="Input.Password" class="form-control" />
+                                <span class="icon_lock"></span>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="input__item">
+                                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                                <span class="icon_lock"></span>
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                        </form>
+                        <h5>Already have an account?  <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="primary-btn">Giriş Yap</a></h5>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
