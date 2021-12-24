@@ -1,166 +1,138 @@
-﻿using System;
+﻿using AnimeBox.Data;
+using AnimeBox.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AnimeBox.Data;
-using AnimeBox.Models;
 
 namespace AnimeBox.Controllers
 {
     public class SepetController : Controller
     {
-        private readonly ApplicationDbContext _context;
 
-        public SepetController(ApplicationDbContext context)
+
+        private readonly ApplicationDbContext _context;
+        private readonly IStringLocalizer<HomeController> _localizer;
+
+
+        public SepetController(IStringLocalizer<HomeController> localizer, ApplicationDbContext context)
         {
             _context = context;
+            _localizer = localizer;
         }
 
-        // GET: Sepet
-        public async Task<IActionResult> Index()
+
+        public ActionResult Index(string eposta)
         {
-            var applicationDbContext = _context.Sepet.Include(s => s.Anime).Include(s => s.Hesap);
-            return View(await applicationDbContext.ToListAsync());
+           
+            var animeListesi = (from g in _context.Anime
+                                join f in _context.AnimeKategori on g.Id equals f.AnimeId                             
+                                select new AnimeDTO
+                                {
+                                    AnimeID = g.Id,
+                                    Ad = g.AnimeAdi,
+                                    Baslamatarihi = g.BaslamaTarihi,
+                                    Bitistarihi = g.BitisTarihi,
+                                    Begeni = g.BegeniSayisi,                                 
+                                    Bolumsayisi = g.BolumSayisi,
+                                    Tamamlananbolumsayisi = g.KacBolumTamamlandi,
+                                    Izlenme = g.IzlenmeSayisi,
+                                    SatinAlim = g.SatinAlimSayisi,
+                                    PiyasaDegeri = g.Fiyat,
+                                    Kucukfoto = g.AnimeKucukFoto,                                
+                                    Aktiflik = g.AktifMi,                               
+                                    Onemsirasi = f.OnemSirasi,
+                                    Kategoriadi = f.Kategori.AnimeTuru
+                                })
+                                .ToList();
+
+             
+
+            return View(animeListesi);
         }
 
-        // GET: Sepet/Details/5
-        public async Task<IActionResult> Details(int? id)
+
+        public ActionResult SepeteAnimeEkle(int id)
         {
-            if (id == null)
+
+            var animeListesi = (from g in _context.Sepet
+                              
+                                where g.AnimeId == id && g.Email == User.Identity.Name
+                                select new SepetDTO
+                                {
+                                   EPosta = g.Email,
+                                   
+                                })
+                               .ToList();
+
+
+            if (animeListesi.Count==0)
             {
-                return NotFound();
-            }
+                var sepet = new Sepet[] { new Sepet { Email = User.Identity.Name, AnimeId = id, SepeteEklenmeTarihi = DateTime.Now } };
 
-            var sepet = await _context.Sepet
-                .Include(s => s.Anime)
-                .Include(s => s.Hesap)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (sepet == null)
-            {
-                return NotFound();
-            }
 
-            return View(sepet);
-        }
-
-        // GET: Sepet/Create
-        public IActionResult Create()
-        {
-            ViewData["AnimeId"] = new SelectList(_context.Anime, "Id", "Id");
-            ViewData["HesapId"] = new SelectList(_context.Hesap, "Id", "Id");
-            return View();
-        }
-
-        // POST: Sepet/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,HesapId,AnimeId,Fiyat,Indirim,SiparisOk")] Sepet sepet)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(sepet);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AnimeId"] = new SelectList(_context.Anime, "Id", "Id", sepet.AnimeId);
-            ViewData["HesapId"] = new SelectList(_context.Hesap, "Id", "Id", sepet.HesapId);
-            return View(sepet);
-        }
-
-        // GET: Sepet/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var sepet = await _context.Sepet.FindAsync(id);
-            if (sepet == null)
-            {
-                return NotFound();
-            }
-            ViewData["AnimeId"] = new SelectList(_context.Anime, "Id", "Id", sepet.AnimeId);
-            ViewData["HesapId"] = new SelectList(_context.Hesap, "Id", "Id", sepet.HesapId);
-            return View(sepet);
-        }
-
-        // POST: Sepet/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,HesapId,AnimeId,Fiyat,Indirim,SiparisOk")] Sepet sepet)
-        {
-            if (id != sepet.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                foreach (Sepet s in sepet)
                 {
-                    _context.Update(sepet);
-                    await _context.SaveChangesAsync();
+                    _context.Add(s);
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SepetExists(sepet.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+
+
+                _context.SaveChanges();
+
             }
-            ViewData["AnimeId"] = new SelectList(_context.Anime, "Id", "Id", sepet.AnimeId);
-            ViewData["HesapId"] = new SelectList(_context.Hesap, "Id", "Id", sepet.HesapId);
-            return View(sepet);
+           
+            return RedirectToAction("Index", "Home");
         }
 
-        // GET: Sepet/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+
+
+        public class AnimeDTO
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            public int AnimeID { get; internal set; }
 
-            var sepet = await _context.Sepet
-                .Include(s => s.Anime)
-                .Include(s => s.Hesap)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (sepet == null)
-            {
-                return NotFound();
-            }
+            public string Ad { get; internal set; }
 
-            return View(sepet);
+            [DataType(DataType.Date)]
+            public DateTime? Baslamatarihi { get; internal set; }
+
+            [DataType(DataType.Date)]
+            public DateTime? Bitistarihi { get; internal set; }
+
+            public int? Begeni { get; internal set; }
+                    
+            public string Bolumsayisi { get; internal set; }
+
+            public string Tamamlananbolumsayisi { get; internal set; }
+
+            public int? Izlenme { get; internal set; }
+
+            public int? SatinAlim { get; internal set; }
+
+            public double? PiyasaDegeri { get; internal set; }
+
+            public string Kucukfoto { get; internal set; }
+           
+            public bool? Aktiflik { get; internal set; }
+
+            public string Kategoriadi { get; internal set; }
+
+            public int? Onemsirasi { get; internal set; }        
+
         }
 
-        // POST: Sepet/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var sepet = await _context.Sepet.FindAsync(id);
-            _context.Sepet.Remove(sepet);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
-        private bool SepetExists(int id)
+
+
+        public class SepetDTO
         {
-            return _context.Sepet.Any(e => e.Id == id);
+            public string EPosta { get; internal set; }
+
+           
         }
     }
 }
