@@ -1,0 +1,70 @@
+﻿@model IEnumerable<AnimeBox.Controllers.AnimeDTO>
+@inject LanguageService language
+
+
+<!DOCTYPE html>
+<html>
+<body>
+    @foreach (var item in Model)
+    {
+
+        <!-- Breadcrumb End -->
+        <!-- Anime Section Begin -->
+        <section class="anime-details spad">
+            <div class="container">
+                <div class="anime__details__content">
+                    <div class="row">                       
+                        <div class="col-lg-3">
+                            <div class="anime__details__pic set-bg" data-setbg="@item.Kucukfoto">
+                                <div class="comment"><i class="fa fa-thumbs-o-up"></i>@item.Begeni</div>
+                                <div class="view"><i class="fa fa-eye"></i> @item.Izlenme</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="anime__details__text">
+                                <div class="anime__details__title">
+                                    <h3>@item.Ad</h3>
+                                </div>
+                                <p>
+                                    @item.Konusu
+                                </p>
+                                <div class="anime__details__widget">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <ul>
+                                                <li><span>@language.GetKey("studyo")</span>@item.StudyoADI</li>
+                                                <li><span>@language.GetKey("bolum")</span> @item.Bolumsayisi/@item.Tamamlananbolumsayisi</li>
+                                                <li><span>@language.GetKey("kategori")</span> @item.Kategoriadi</li>
+                                                <li><span>@language.GetKey("sezon")</span> @item.SezonNO</li>
+                                                <li><span>@language.GetKey("yassiniri")</span> +@item.YasSINIRI</li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <ul>
+                                                <li><span>IMDb </span>@item.IMDB</li>
+                                                <li><span>@language.GetKey("satinalimsayisi")</span> @item.SatinAlim</li>
+                                                <li><span>@language.GetKey("izlenmesayisi")</span> @item.Izlenme</li>
+                                                <li><span>@language.GetKey("begenisayisi")</span> @item.Begeni</li>
+                                                <li><span>@language.GetKey("bolumsuresi")</span> @item.Sure @language.GetKey("dakika")</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="anime__details__btn">
+                                    <a asp-area="" asp-controller="Sepet" asp-action="SepeteAnimeEkleSlider" asp-route-id="@item.AnimeID" class="watch-btn">
+                                        <span>@language.GetKey("sepeteekle")</span> <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        break;
+    }
+
+
+</body>
+</html>

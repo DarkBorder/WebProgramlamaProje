@@ -1,0 +1,227 @@
+﻿@model IEnumerable<AnimeBox.Controllers.AnimeDTO>
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<Musteri> SignInManager
+@inject UserManager<Musteri> UserManager
+
+
+@inject LanguageService language
+
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="container">
+        <div class="hero__slider owl-carousel">
+
+            @{var onemliAnimeler = Model.Where(x => x.Onemsirasi == 1).OrderByDescending(y => y.Begeni).ToList();}
+            @foreach (var item in onemliAnimeler.Take(6))
+            {
+                <div class="hero__items set-bg" data-setbg="@item.Tanitimfoto">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hero__text">
+                                <br> <br>  <br>  <br>
+                                <h2>@item.Ad</h2>
+                                <br>
+                                @*<a href="#"><span>@language.GetKey("satinal")</span> <i class="fa fa-angle-right"></i></a>*@
+
+                                @{
+                                    if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <a asp-area="" asp-controller="Sepet" asp-action="SepeteAnimeEkleSlider" asp-route-id="@item.AnimeID"><span>@language.GetKey("simdisatinal")</span> <i class="fa fa-angle-right"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-area="Identity" asp-page="/Account/Login"><span>@language.GetKey("simdisatinal")</span> <i class="fa fa-angle-right"></i></a>
+                                    }
+
+
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="trending__product">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="section-title">
+                                <h4>@language.GetKey("encoksatanlar")</h4>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="btn__all">
+                                <a href="#" class="primary-btn">@language.GetKey("viewall")<span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        @{var coksatanAnimeler = Model.Where(x => x.Onemsirasi == 1).OrderByDescending(y => y.SatinAlim).ToList();}
+                        @foreach (var item in coksatanAnimeler.Take(6))
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="@item.Kucukfoto">
+                                         <div class="ep"> @item.Bolumsayisi / @item.Tamamlananbolumsayisi  </div>
+                                        <div class="comment"><i class="fa fa-thumbs-o-up"></i>@item.Begeni</div>
+                                        <div class="view"><i class="fa fa-eye"></i>@item.Izlenme</div>                                  
+                                    </div>
+                                    <div class="product__item__text">
+                                        <ul>
+                                            <li>@item.Kategoriadi</li>
+                                        </ul>
+                                        <h5><a asp-area="" asp-controller="Home" asp-action="AnimeDetay" asp-route-arama="@item.Ad">@item.Ad</a></h5>
+                                       
+                                    </div>
+                                <div class="product__item__fiyat">
+                                    <h5>@item.PiyasaDegeri $</h5>
+                                </div>
+                                @{
+                                    if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <div class="product__item__sepet">
+                                            <a asp-area="" asp-controller="Sepet" asp-action="SepeteAnimeEkle" asp-route-id="@item.AnimeID" class="btn btn-primary">@language.GetKey("sepeteekle")</a>
+                                        </div>
+
+                                    }
+
+                                }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="recent__product">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="section-title">
+                                <h4>@language.GetKey("aktifanimeler")</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="btn__all">
+                                <a href="#" class="primary-btn">@language.GetKey("viewall")<span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @{var aktifAnimeler = Model.Where(x => x.Aktiflik == true && x.Onemsirasi == 1).OrderByDescending(y => y.Izlenme).ToList();}
+                        @foreach (var item in aktifAnimeler.Take(6))
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="@item.Kucukfoto">
+                                        <div class="ep">@item.Bolumsayisi / @item.Tamamlananbolumsayisi</div>
+                                        <div class="comment"><i class="fa fa-comments"></i> @item.Begeni</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @item.Izlenme</div>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <ul>
+                                            <li>@item.Kategoriadi</li>
+                                        </ul>
+                                        <h5><a asp-area="" asp-controller="Home" asp-action="AnimeDetay" asp-route-arama="@item.Ad">@item.Ad</a></h5>
+
+                                    </div>
+                                    <div class="product__item__fiyat">
+                                        <h5>@item.PiyasaDegeri $</h5>
+                                    </div>
+                                    @{
+
+                                        if (SignInManager.IsSignedIn(User))
+                                        {
+
+                                            <div class="product__item__sepet">
+                                                <a asp-area="" asp-controller="Sepet" asp-action="SepeteAnimeEkle" asp-route-id="@item.AnimeID" class="btn btn-primary">@language.GetKey("sepeteekle")</a>
+                                            </div>
+                                        }
+
+                                    }
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+
+                <div class="recent__product">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="section-title">
+                                <h4>@language.GetKey("yakinda")</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="btn__all">
+                                <a href="#" class="primary-btn">@language.GetKey("viewall")<span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @{var yakindaCikacakAnimeler = Model.Where(x => (x.Baslamatarihi <= DateTime.Now.AddMonths(+4) && x.Baslamatarihi >= DateTime.Now && x.Onemsirasi == 1 || x.Baslamatarihi == null && x.Onemsirasi == 1)).ToList();}
+                        @foreach (var item in yakindaCikacakAnimeler.Take(6))
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="@item.Kucukfoto">
+                                        <div class="ep">@item.Bolumsayisi / @item.Tamamlananbolumsayisi  </div>
+                                        <div class="comment"><i class="fa fa-thumbs-o-up"></i>@item.Begeni</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @item.Izlenme</div>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <ul>
+                                            <li>@item.Kategoriadi</li>
+                                        </ul>
+
+                                        <h5><a asp-area="" asp-controller="Home" asp-action="AnimeDetay" asp-route-arama="@item.Ad">@item.Ad</a></h5>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-8">
+                <div class="product__sidebar">
+                    <div class="product__sidebar__view">
+                        <div class="section-title">
+                            <h5>@language.GetKey("izlenme")</h5>
+                        </div>
+                        <div class="filter__gallery">
+                            @{var enCokIzlenenAnimeler = Model.Where(x => x.Onemsirasi == 1).OrderByDescending(x => x.Izlenme).ToList();}
+                            @foreach (var item in enCokIzlenenAnimeler.Take(6))
+                            {
+                                <div class="product__sidebar__view__item set-bg"
+                                     data-setbg="@item.Kucukfoto">
+                                    <div class="ep">@item.Bolumsayisi / @item.Tamamlananbolumsayisi</div>
+                                    <div class="view"><i class="fa fa-eye"></i> @item.Izlenme</div>
+
+                                    <h5><a asp-area="" asp-controller="Home" asp-action="AnimeDetay" asp-route-arama="@item.Ad">@item.Ad</a></h5>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Product Section End -->
