@@ -1,59 +1,28 @@
-﻿@model IEnumerable<AnimeBox.Models.Sepet>
+﻿@model IEnumerable<AnimeBox.Controllers.AnimeDTO>
 
-@{
-    ViewData["Title"] = "Index";
+@foreach (var item in Model)
+{
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="product__item">
+            <div class="product__item__pic set-bg" data-setbg="@item.Kucukfoto">
+                <div class="ep"> @item.Bolumsayisi / @item.Tamamlananbolumsayisi  </div>
+                <div class="comment"><i class="fa fa-thumbs-o-up"></i>@item.Begeni</div>
+                <div class="view"><i class="fa fa-eye"></i>@item.Izlenme</div>
+            </div>
+            <div class="product__item__text">
+                <ul>
+                    <li>@item.Kategoriadi</li>
+                </ul>
+                <h5>@item.Ad</h5>
+
+            </div>
+                                
+           <div class="product__item__fiyat">
+                   <h5>@item.PiyasaDegeri $</h5>
+            </div>         
+                         
+        </div>
+    </div>
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Hesap)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Anime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fiyat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Indirim)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SiparisOk)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hesap.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Anime.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fiyat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Indirim)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SiparisOk)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
