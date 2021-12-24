@@ -1,0 +1,82 @@
+﻿@model IEnumerable<AnimeBox.Controllers.SepetController.AnimeDTO>
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<Musteri> SignInManager
+@inject UserManager<Musteri> UserManager
+
+
+@inject LanguageService language
+
+
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="trending__product">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="section-title">
+                                <h4>@language.GetKey("sepetiniz")</h4>
+                            </div>
+                        </div>
+                    </div>
+                    @{double? toplamFiyat = 0;
+                        int kactanevar = 0;
+                        }
+                <div class="row">
+
+
+                    @foreach (var item in Model)
+                    {
+
+
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item__detay" style="border-block-color:#000000">
+
+                                <a asp-area="" asp-controller="Home" asp-action="AnimeDetay" asp-route-arama="@item.Ad" class="btn btn-primary">@language.GetKey("detay")</a>
+
+                            </div>
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="@item.Kucukfoto">
+                                    <div class="ep"> @item.Bolumsayisi / @item.Tamamlananbolumsayisi  </div>
+                                    <div class="comment"><i class="fa fa-thumbs-o-up"></i>@item.Begeni</div>
+                                    <div class="view"><i class="fa fa-eye"></i>@item.Izlenme</div>
+                                </div>
+                                <div class="product__item__text">
+                                    <h5>@item.Ad</h5>
+                                </div>
+
+                                <div class="product__item__fiyat">
+                                    <h5>@item.PiyasaDegeri $</h5>
+                                    @{ toplamFiyat += item.PiyasaDegeri;}
+                                </div>
+
+                                <div class="product__item__sepet">
+
+                                    <a asp-area="" asp-controller="Sepet" asp-action="SepettenAnimeSil" asp-route-sepetId="@item.SepetID" class="btn btn-primary">@language.GetKey("satinal")</a>
+                                    @*asp-area="" asp-controller="Sepet" asp-action="SepeteAnimeEkle" asp-route-id="@item.AnimeID"*@
+                                </div>
+                            </div>
+                        </div>
+
+                        kactanevar++;
+
+                    }
+                    <hr size="8" width="100%" color="red">
+
+             
+                    <h6>@language.GetKey("toplamfiyat") : @toplamFiyat $</h6>
+                
+                    <div class="product__item__sepet__tum">
+                        <a asp-area="" asp-controller="Sepet" asp-action="SepettenTumAnimeleriSil" >@language.GetKey("alisveristamamla")</a>                      
+                    </div>
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
