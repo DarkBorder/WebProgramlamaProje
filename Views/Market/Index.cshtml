@@ -1,0 +1,73 @@
+﻿@model IEnumerable<AnimeBox.Controllers.MarketController.MarketDTO>
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<Musteri> SignInManager
+@inject UserManager<Musteri> UserManager
+
+
+@inject LanguageService language
+
+
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="trending__product">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="section-title">
+                                <h4>@language.GetKey("tumanimeler")</h4>
+                            </div>
+
+                        </div>                    
+                    </div>
+                    <div class="row">
+
+                        @{var tumAnimeler = Model.Where(x => x.Onemsirasi == 1).OrderByDescending(y => y.SatinAlim).ToList();}
+                        @foreach (var item in tumAnimeler)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="@item.Kucukfoto">
+                                        <div class="ep"> @item.Bolumsayisi / @item.Tamamlananbolumsayisi  </div>
+                                        <div class="comment"><i class="fa fa-thumbs-o-up"></i>@item.Begeni</div>
+                                        <div class="view"><i class="fa fa-eye"></i>@item.Izlenme</div>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <ul>
+                                            <li>@item.Kategoriadi</li>
+                                        </ul>
+                                        <h5><a asp-area="" asp-controller="Home" asp-action="AnimeDetay" asp-route-arama="@item.Ad">@item.Ad</a></h5>
+
+                                    </div>
+                                    <div class="product__item__fiyat">
+                                        <h5>@item.PiyasaDegeri $</h5>
+                                    </div>
+                                    @{
+                                        if (SignInManager.IsSignedIn(User))
+                                        {
+                                            <div class="product__item__sepet">
+                                                <a asp-area="" asp-controller="Sepet" asp-action="SepeteAnimeEkleMarket" asp-route-id="@item.AnimeID" class="btn btn-primary">@language.GetKey("sepeteekle")</a>
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="product__item__sepet">
+                                                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">@language.GetKey("sepeteekle")</a>
+                                            </div>
+
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
