@@ -34,14 +34,30 @@
                 <span asp-validation-for="BitisTarihi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="KacinciSezon" class="control-label"></label>
-                <input asp-for="KacinciSezon" class="form-control" />
-                <span asp-validation-for="KacinciSezon" class="text-danger"></span>
+                <label asp-for="KacBolumTamamlandi" class="control-label"></label>
+                <input asp-for="KacBolumTamamlandi" class="form-control" />
+                <span asp-validation-for="KacBolumTamamlandi" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HangiSezondaCikti" class="control-label"></label>
-                <input asp-for="HangiSezondaCikti" class="form-control" />
+                <br>
+                <select asp-for="HangiSezondaCikti" asp-items="Html.GetEnumSelectList<Sezon>()" class="form-control"> </select>
+                <br> <br>
                 <span asp-validation-for="HangiSezondaCikti" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SezonNo" class="control-label"></label>
+                <br>
+                <input asp-for="SezonNo" class="form-control" />
+                <br> <br>
+                <span asp-validation-for="SezonNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PartNo" class="control-label"></label>
+                <br>
+                <input asp-for="PartNo" class="form-control" />
+                <br> <br>
+                <span asp-validation-for="PartNo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Fiyat" class="control-label"></label>
@@ -62,6 +78,11 @@
                 <label asp-for="IzlenmeSayisi" class="control-label"></label>
                 <input asp-for="IzlenmeSayisi" class="form-control" />
                 <span asp-validation-for="IzlenmeSayisi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BegeniSayisi" class="control-label"></label>
+                <input asp-for="BegeniSayisi" class="form-control" />
+                <span asp-validation-for="BegeniSayisi" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BolumSayisi" class="control-label"></label>
@@ -93,6 +114,12 @@
                 @*<input asp-for="AnimeTanitimFoto" class="form-control" />*@
                 <input type="file" class="form-control" name="files" />
                 <span asp-validation-for="AnimeTanitimFoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnimeKucukFoto" class="control-label"></label>
+                @*<input asp-for="AnimeTanitimFoto" class="form-control" />*@
+                <input type="file" class="form-control" name="files" />
+                <span asp-validation-for="AnimeKucukFoto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FragmanVideosu" class="control-label"></label>

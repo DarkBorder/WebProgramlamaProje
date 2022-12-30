@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Musteri> SignInManager
+@inject UserManager<Musteri> UserManager
+
+@inject LanguageService language
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,6 +32,9 @@
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/style.css" type="text/css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
@@ -41,42 +50,125 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">
                             <img src="/lib/bootstrap/dist/img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="index.html">Anasayfa</a></li>
-                                <li>
-                                    <a href="./categories.html">Kategoriler <span class="arrow_carrot-down"></span></a>
-                                    <ul class="dropdown">
-                                        <li><a href="./categories.html">Mağaza</a></li>
-                                        <li><a href="./anime-details.html">Anime Detayları</a></li>
-                                        <li><a href="./anime-watching.html">Anime Watching</a></li>
-                                        <li><a href="./blog-details.html">Blog Detayları</a></li>
-                                        <li><a href="./signup.html">Kayıt Ol</a></li>
-                                        <li><a href="./login.html">Giriş Yap</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="#">Contacts</a></li>
+                                <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">@language.GetKey("anasayfa")</a></li>
+
+                                @{
+                                    if (SignInManager.IsSignedIn(User) && !User.Identity.Name.Equals("g181210064@sakarya.edu.tr"))
+                                    {
+                                        <li class="active"><a asp-area="" asp-controller="Sepet" asp-action="Index" asp-route-id="@User.Identity.Name">@language.GetKey("sepet")</a></li>
+
+                                    }
+
+                                }
+                                <li class="active"><a asp-area="" asp-controller="Market" asp-action="Index">@language.GetKey("magaza")</a></li>
+
+
+                                @{
+                                    if (SignInManager.IsSignedIn(User) && User.Identity.Name.Equals("g181210064@sakarya.edu.tr"))
+                                    {
+                                        <li class="active">
+                                            <a href="#">Admin <span class="arrow_carrot-down"></span></a>
+                                            <ul class="dropdown">
+                                                <li><a asp-area="" asp-controller="Anime" asp-action="Index">@language.GetKey("animeler")</a></li>
+                                                <li><a asp-area="" asp-controller="Kategori" asp-action="Index">@language.GetKey("kategoriler")</a></li>
+                                                <li><a asp-area="" asp-controller="AnimeKategori" asp-action="Index">@language.GetKey("animekategoriler")</a></li>
+                                                <li><a asp-area="" asp-controller="Studyo" asp-action="Index">@language.GetKey("studyolar")</a></li>
+                                                <li><a asp-area="" asp-controller="Yapimci" asp-action="Index">@language.GetKey("yapimcilar")</a></li>
+                                                <li><a asp-area="" asp-controller="AnimeYapimci" asp-action="Index">@language.GetKey("animeyapimcilar")</a></li>
+                                                <li><a asp-area="" asp-controller="Bolum" asp-action="Index">@language.GetKey("bolumler")</a></li>
+                                                <li><a asp-area="" asp-controller="Sepet" asp-action="Index">@language.GetKey("sepetler")</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+
+                                @* @{
+            if (SignInManager.IsSignedIn(User))
+            {
+                <li class="active"><a asp-controller="Home" asp-action="UrunDetay">@language.GetKey("animedetaylari")</a></li>
+
+            }
+        }*@
+
                             </ul>
                         </nav>
                     </div>
                 </div>
-                <div class="col-lg-2">
+
+                @*<li class="active"><a asp-area="Identity" asp-page="/Account/Register">Kayıt Ol</a></li>*@
+                <div class="col-lg-3">
+                    @{
+                        if (SignInManager.IsSignedIn(User))
+                        {
+                            <div class="header__right">
+
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button type="submit" class="nav-link btn btn-link text-dark">@language.GetKey("cikisyap")</button>
+                                </form>
+                                <h6>@User.Identity.Name</h6>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="header__right">
+                                <nav class="header__menu mobile-menu">
+                                    <ul>
+                                        <li class="active"><a asp-area="Identity" asp-page="/Account/Login">@language.GetKey("girisyap")</a></li>
+
+                                        <li class="active"><a asp-area="Identity" asp-page="/Account/Register">@language.GetKey("uyeol")</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <div class="col-lg-1">
                     <div class="header__right">
-                        <a href="#" class="search-switch"><span class="icon_search"></span></a>
-                        <a href="./login.html"><span class="icon_profile"></span></a>
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li class="active">
+                                    <a href="#">@language.GetKey("diller")<span class="arrow_carrot-down"></span></a>
+                                    <ul class="dropdown">
+                                        <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">@language.GetKey("ingilizce")</a></li>
+                                        <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="tr-TR">@language.GetKey("turkce")</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <form style="position: absolute; right: -89px; top: 63px;" asp-controller="Home" asp-action="AnimeDetay">
+                                <div class="input-group mb-3">
+                                    <input type="text" style="width: 131px; height:34px" class="form-control" name="arama" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" style="height:34px" id="inputGroup-sizing-sm" type="submit">@language.GetKey("ara")</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </nav>
                     </div>
                 </div>
+
+
+                @*
+        <form style="position: absolute; right: 148px; top: 64px; box-sizing: border-box;" asp-controller="Home" asp-action="UrunDetay">
+            <input type="text" style="background-color: #FC0000; color: #ffffff; box-sizing: border-box; border: 2px solid #FC0000; " name="arama" size="10" />
+
+            <button type="submit" class="nav-link btn btn-link text-dark">@language.GetKey("ara")</button>
+        </form>*@
+               
+                    
+                    
+                </div>
+                <div id="mobile-menu-wrap"></div>
             </div>
-            <div id="mobile-menu-wrap"></div>
-        </div>
     </header>
     <!-- Header End -->
 
@@ -93,21 +185,23 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="footer__nav">
-                        <ul>
-                            <li class="active"><a href="./index.html">Homepage</a></li>
-                            <li><a href="./categories.html">Categories</a></li>
-                            <li><a href="./blog.html">Our Blog</a></li>
-                            <li><a href="#">Contacts</a></li>
-                        </ul>
-                    </div>
-                </div>
+                @*
+        <div class="col-lg-6">
+            <div class="footer__nav">
+                <ul>
+                    <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">@language.GetKey("anasayfa")</a></li>
+                    <li><a href="./categories.html">Categories</a></li>
+                    <li><a href="./blog.html">Our Blog</a></li>
+                    <li><a href="#">Contacts</a></li>
+
+                </ul>
+            </div>
+        </div>*@
                 <div class="col-lg-3">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i><a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
 
@@ -116,8 +210,6 @@
         </div>
     </footer>
     <!-- Footer Section End -->
-
-
     <!-- Search model Begin -->
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">

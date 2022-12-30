@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<AnimeBox.Controllers.AnimeDTO>
+
 @inject LanguageService language
 
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<Musteri> SignInManager
+@inject UserManager<Musteri> UserManager
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +18,7 @@
         <section class="anime-details spad">
             <div class="container">
                 <div class="anime__details__content">
-                    <div class="row">                       
+                    <div class="row">
                         <div class="col-lg-3">
                             <div class="anime__details__pic set-bg" data-setbg="@item.Kucukfoto">
                                 <div class="comment"><i class="fa fa-thumbs-o-up"></i>@item.Begeni</div>
@@ -51,11 +56,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="anime__details__btn">
-                                    <a asp-area="" asp-controller="Sepet" asp-action="SepeteAnimeEkleSlider" asp-route-id="@item.AnimeID" class="watch-btn">
-                                        <span>@language.GetKey("sepeteekle")</span> <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </div>
+                                @{
+
+                                    if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <div class="anime__details__btn">
+                                            <a asp-area="" asp-controller="Sepet" asp-action="SepeteAnimeEkleSlider" asp-route-id="@item.AnimeID" class="watch-btn">
+                                                <span>@language.GetKey("sepeteekle")</span> <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    }
+
+                                }
+
+
                             </div>
                         </div>
                     </div>

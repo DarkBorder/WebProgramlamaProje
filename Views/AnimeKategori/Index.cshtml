@@ -28,10 +28,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Anime.Id)
+                @Html.DisplayFor(modelItem => item.Anime.AnimeAdi)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Kategori.Id)
+                @Html.DisplayFor(modelItem => item.Kategori.AnimeTuru)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OnemSirasi)

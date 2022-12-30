@@ -14,15 +14,21 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="AnimeId" class="control-label"></label>
-                <select asp-for="AnimeId" class ="form-control" asp-items="ViewBag.AnimeId"></select>
+                <br>
+                <select asp-for="AnimeId" class="form-control" asp-items="ViewBag.AnimeId"></select>
+                <br><br>
             </div>
             <div class="form-group">
                 <label asp-for="KategoriId" class="control-label"></label>
-                <select asp-for="KategoriId" class ="form-control" asp-items="ViewBag.KategoriId"></select>
+                <br>
+                <select asp-for="KategoriId" class="form-control" asp-items="ViewBag.KategoriId"></select>
+                <br><br>
             </div>
             <div class="form-group">
                 <label asp-for="OnemSirasi" class="control-label"></label>
+                <br>
                 <input asp-for="OnemSirasi" class="form-control" />
+                <br><br>
                 <span asp-validation-for="OnemSirasi" class="text-danger"></span>
             </div>
             <div class="form-group">

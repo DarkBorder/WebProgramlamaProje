@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Studyo)
             </th>
             <th>
@@ -25,10 +28,16 @@
                 @Html.DisplayNameFor(model => model.BitisTarihi)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.KacinciSezon)
+                @Html.DisplayNameFor(model => model.KacBolumTamamlandi)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.HangiSezondaCikti)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SezonNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartNo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fiyat)
@@ -41,6 +50,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IzlenmeSayisi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BegeniSayisi)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BolumSayisi)
@@ -58,7 +70,10 @@
                 @Html.DisplayNameFor(model => model.AnimeninKonusu)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnimeTanitimFoto)   
+                @Html.DisplayNameFor(model => model.AnimeTanitimFoto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnimeKucukFoto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FragmanVideosu)
@@ -70,7 +85,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Studyo.Id)
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Studyo.StudyoAdi)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AnimeAdi)
@@ -82,10 +100,16 @@
                 @Html.DisplayFor(modelItem => item.BitisTarihi)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.KacinciSezon)
+                @Html.DisplayFor(modelItem => item.KacBolumTamamlandi)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HangiSezondaCikti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SezonNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartNo)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Fiyat)
@@ -98,6 +122,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IzlenmeSayisi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BegeniSayisi)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BolumSayisi)
@@ -117,6 +144,10 @@
             <td>
                 @* @Html.DisplayFor(modelItem => item.AnimeTanitimFoto)*@
                 <img src="@Url.Content(item.AnimeTanitimFoto)" class="d-block w-100" asp-append-version="true" />
+            </td>
+            <td>
+                @* @Html.DisplayFor(modelItem => item.AnimeTanitimFoto)*@
+                <img src="@Url.Content(item.AnimeKucukFoto)" class="d-block w-100" asp-append-version="true" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FragmanVideosu)
