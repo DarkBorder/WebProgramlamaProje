@@ -12,11 +12,11 @@ namespace AnimeBox.Models
 
         public int? AnimeId { get; set; }
         [ForeignKey("AnimeId")]
-        public Studyo Anime { get; set; }
+        public Anime Anime { get; set; }
 
         public int? KategoriId { get; set; }
         [ForeignKey("KategoriId")]
-        public Studyo Kategori { get; set; }
+        public Kategori Kategori { get; set; }
 
         public int? OnemSirasi { get; set; }
     }

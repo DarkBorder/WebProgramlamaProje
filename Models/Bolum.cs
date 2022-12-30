@@ -19,7 +19,6 @@ namespace AnimeBox.Models
 
         public double? KacinciBolum { get; set; } // bazen 7.5 bolum seklinde bolumler olabiliyor
 
-        /*[DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}",ApplyFormatInEditMode =true)]*/
+      
     }
 }

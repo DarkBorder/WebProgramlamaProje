@@ -7,9 +7,9 @@ namespace AnimeBox.Models
 {
     public enum Sezon
     {
-        ilkBahar = 1,
-        yaz,
-        sonBahar,
-        kis
+        İlkBahar = 1,
+        Yaz,
+        SonBahar,
+        Kis
     }
 }

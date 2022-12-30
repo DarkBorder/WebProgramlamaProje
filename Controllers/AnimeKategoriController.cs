@@ -49,8 +49,8 @@ namespace AnimeBox.Controllers
         // GET: AnimeKategori/Create
         public IActionResult Create()
         {
-            ViewData["AnimeId"] = new SelectList(_context.Studyo, "Id", "Id");
-            ViewData["KategoriId"] = new SelectList(_context.Studyo, "Id", "Id");
+            ViewData["AnimeId"] = new SelectList(_context.Anime, "Id", "AnimeAdi");
+            ViewData["KategoriId"] = new SelectList(_context.Kategori, "Id", "AnimeTuru");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace AnimeBox.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AnimeId"] = new SelectList(_context.Studyo, "Id", "Id", animeKategori.AnimeId);
-            ViewData["KategoriId"] = new SelectList(_context.Studyo, "Id", "Id", animeKategori.KategoriId);
+            ViewData["AnimeId"] = new SelectList(_context.Anime, "Id", "AnimeAdi", animeKategori.AnimeId);
+            ViewData["KategoriId"] = new SelectList(_context.Kategori, "Id", "AnimeTuru", animeKategori.KategoriId);
             return View(animeKategori);
         }
 
@@ -85,8 +85,8 @@ namespace AnimeBox.Controllers
             {
                 return NotFound();
             }
-            ViewData["AnimeId"] = new SelectList(_context.Studyo, "Id", "Id", animeKategori.AnimeId);
-            ViewData["KategoriId"] = new SelectList(_context.Studyo, "Id", "Id", animeKategori.KategoriId);
+            ViewData["AnimeId"] = new SelectList(_context.Anime, "Id", "AnimeAdi", animeKategori.AnimeId);
+            ViewData["KategoriId"] = new SelectList(_context.Kategori, "Id", "AnimeTuru", animeKategori.KategoriId);
             return View(animeKategori);
         }
 
@@ -122,8 +122,8 @@ namespace AnimeBox.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AnimeId"] = new SelectList(_context.Studyo, "Id", "Id", animeKategori.AnimeId);
-            ViewData["KategoriId"] = new SelectList(_context.Studyo, "Id", "Id", animeKategori.KategoriId);
+            ViewData["AnimeId"] = new SelectList(_context.Anime, "Id", "AnimeAdi", animeKategori.AnimeId);
+            ViewData["KategoriId"] = new SelectList(_context.Kategori, "Id", "AnimeTuru", animeKategori.KategoriId);
             return View(animeKategori);
         }
 

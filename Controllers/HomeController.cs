@@ -32,7 +32,7 @@ namespace AnimeBox.Controllers
             var animeListesi = (from g in _context.Anime
                                 join f in _context.AnimeKategori on g.Id equals f.AnimeId 
                                 join k in _context.Studyo on g.StudyoId equals k.Id
-                                where g.AnimeAdi!.Contains(arama)
+                                where g.AnimeAdi.Contains(arama)
                                 select new AnimeDTO
                                 {
                                     AnimeID = g.Id,

@@ -63,7 +63,7 @@ namespace AnimeBox.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StudyoId,AnimeAdi,BaslamaTarihi,BitisTarihi,KacinciSezon,HangiSezondaCikti,Fiyat,YasSiniri,SatinAlimSayisi,IzlenmeSayisi,BolumSayisi,BolumSuresi,IMDB_Puan,AktifMi,AnimeninKonusu,AnimeTanitimFoto,FragmanVideosu")] Anime anime)
+        public async Task<IActionResult> Create([Bind("Id,StudyoId,AnimeAdi,BaslamaTarihi,BitisTarihi,KacBolumTamamlandi,HangiSezondaCikti,SezonNo,PartNo,Fiyat,YasSiniri,SatinAlimSayisi,IzlenmeSayisi,BegeniSayisi,BolumSayisi,BolumSuresi,IMDB_Puan,AktifMi,AnimeninKonusu,AnimeTanitimFoto,AnimeKucukFoto,FragmanVideosu")] Anime anime)
         {
             if (ModelState.IsValid)
             {
@@ -71,17 +71,16 @@ namespace AnimeBox.Controllers
                 var files = HttpContext.Request.Form.Files;
 
                 string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(webRootPath, @"lib\bootstrap\dist\img\anime\");
+                var uploads = Path.Combine(webRootPath, @"lib/bootstrap/dist/img/anime/");
                 var extension = Path.GetExtension(files[0].FileName);
 
                 using (var fileStream = new FileStream(Path.Combine(uploads, fileName + extension),FileMode.Create)) 
                 {
                     files[0].CopyTo(fileStream);
                 }
-                anime.AnimeTanitimFoto = @"lib\bootstrap\dist\img\anime\" + fileName + extension;
+                anime.AnimeTanitimFoto = @"lib/bootstrap/dist/img/anime/" + fileName + extension;
 
-
-                 _context.Add(anime);
+                _context.Add(anime);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -112,7 +111,7 @@ namespace AnimeBox.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StudyoId,AnimeAdi,BaslamaTarihi,BitisTarihi,KacinciSezon,HangiSezondaCikti,Fiyat,YasSiniri,SatinAlimSayisi,IzlenmeSayisi,BolumSayisi,BolumSuresi,IMDB_Puan,AktifMi,AnimeninKonusu,AnimeTanitimFoto,FragmanVideosu")] Anime anime)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,StudyoId,AnimeAdi,BaslamaTarihi,BitisTarihi,KacBolumTamamlandi,HangiSezondaCikti,SezonNo,PartNo,Fiyat,YasSiniri,SatinAlimSayisi,IzlenmeSayisi,BegeniSayisi,BolumSayisi,BolumSuresi,IMDB_Puan,AktifMi,AnimeninKonusu,AnimeTanitimFoto,AnimeKucukFoto,FragmanVideosu")] Anime anime)
         {
             if (id != anime.Id)
             {

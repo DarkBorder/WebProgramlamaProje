@@ -10,8 +10,9 @@ namespace AnimeBox.Models
     {
         public int Id { get; set; }
 
-        public int? HesapId { get; set; }
-        [ForeignKey("HesapId")]
-        public Hesap Hesap { get; set; }
+        public string AnimeAd { get; set; }
+
+        public string AnimeFoto { get; set; }
+ 
     }
 }

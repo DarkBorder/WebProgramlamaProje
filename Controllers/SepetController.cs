@@ -91,6 +91,37 @@ namespace AnimeBox.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult SepeteAnimeEkleMarket(int id)
+        {
+            var animeListesi = (from g in _context.Sepet
+
+                                where g.AnimeId == id && g.Email == User.Identity.Name
+                                select new SepetDTO
+                                {
+                                    EPosta = g.Email,
+
+                                })
+                               .ToList();
+
+
+            if (animeListesi.Count == 0)
+            {
+                var sepet = new Sepet[] { new Sepet { Email = User.Identity.Name, AnimeId = id, SepeteEklenmeTarihi = DateTime.Now } };
+
+
+                foreach (Sepet s in sepet)
+                {
+                    _context.Add(s);
+                }
+
+
+                _context.SaveChanges();
+
+            }
+
+            return RedirectToAction("Index", "Market");
+        }
+
 
         public ActionResult SepeteAnimeEkleSlider(int id)
         {
